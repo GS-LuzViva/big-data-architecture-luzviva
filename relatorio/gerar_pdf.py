@@ -12,7 +12,7 @@ from pathlib import Path
 
 AQUI = Path(__file__).resolve().parent
 PRINTS = AQUI / "prints"
-REPO = "https://github.com/GN0Ber/gs-citizentech-dados"
+REPO = "https://github.com/GS-LuzViva/big-data-architecture-luzviva"
 
 FALTANDO: list[str] = []
 
