@@ -145,10 +145,10 @@ medição ao poste pela placa ILUME e usa o GPS só como reserva.</p>
         ("06b", "", "", "r06_prata_qualidade.png", "<code>gs.controle_qualidade</code>: regras e linhas barradas (parte 1)."),
         ("06c", "", "", "r06_prata_qualidade2.png", "<code>gs.controle_qualidade</code>: regras e linhas barradas (parte 2)."),
         ("07", "Ouro (fato e dimensões) e 5 SQL", "Modelo estrela: <code>fato_inspecao</code>, <code>fato_ocorrencia</code>, <code>fato_chamado</code> com <code>dim_luminaria</code>, <code>dim_regiao</code>, <code>dim_tempo</code>. Seis consultas interpretadas na seção 08.",
-         "r07_ouro_catalogo.png", "Catálogo <code>workspace.gs</code> com as tabelas Bronze, Prata e Ouro e as views do MVP."),
+         "r07_ouro_catalogo.png", "Catálogo <code>workspace.gs</code>: 24 objetos (Bronze, Prata, Ouro e controle; lista continua na 2ª página) e os Volumes <code>chegada</code> e <code>mvp</code>."),
         ("08", "LGPD na Ouro e uso pelo MVP", "Nome, e-mail e telefone do cidadão viram <code>cidadao_hash</code> (SHA-256 com sal guardado fora do repositório); coordenada generalizada para ~110 m; as views <code>vw_mvp_*</code> não expõem nem o pseudônimo. O notebook 05 exporta as views em JSON para a API do app.",
          "r08_export_mvp.png", "Export das views do MVP: mapa (47.736), fila de manutenção (239) e painel (3)."),
-        ("08b", "", "", "r08_app_mvp.png", "Tela do app LuzViva exibindo os dados exportados."),
+        ("08b", "", "", "r08_app_mvp.png", "App LuzViva no ar (AWS): mapa das três áreas do piloto com a situação de cada luminária. A carga completa do export (47.736 pontos) está em <code>amostras/mvp/</code> para o app consumir."),
         ("09", "README e organização", "README com integrantes, arquitetura, passo a passo e mapa dos requisitos; pastas <code>dags/</code>, <code>databricks/</code>, <code>docs/</code>, <code>amostras/</code>, <code>tests/</code> (28 testes automatizados).",
          "r09_github.png", "Repositório público no GitHub."),
     ]
