@@ -1,9 +1,24 @@
 # GS 2026.2 CitizenTech · Componente Dados (Big Data Architecture & Data Integration)
 
-**Produto (nome provisório: LuzViva):** inspeção e manutenção de iluminação pública. Um robô
+**Produto (LuzViva):** inspeção e manutenção de iluminação pública. Um robô
 mede a luz sob cada poste à noite, o app e a visão computacional recebem relatos com foto,
 e o pipeline cruza tudo com o cadastro real da ILUME para dizer ao gestor quais luminárias
 estão apagadas, onde e em que ordem atender.
+
+## Ficha Técnica do MVP
+
+| Campo | Conteúdo |
+|---|---|
+| Nome do produto | LuzViva |
+| Cidadão e território | Quem circula à noite nas áreas-piloto Sé, Pinheiros e Campo Limpo, em São Paulo |
+| Problema, em uma frase | A cidade só descobre que uma luminária apagou quando alguém reclama, e a rua fica escura e insegura até lá |
+| Proposta de valor | Achar a falha antes da reclamação e dizer ao gestor o que consertar primeiro, com evidência de duas fontes |
+| Arquitetura: componentes | Robô LDR, app com visão computacional, pipeline de dados (este repositório), assistente de IA, robô de RPA para chamados e plataforma em nuvem |
+| Fontes de dados | Cadastro ILUME (GeoSampa), SP156, Open-Meteo, medições do robô, ocorrências do app e chamados do RPA |
+| Modelos de IA utilizados | YOLO11 treinado para luminárias, LLM com RAG e agente, classificador TinyML no ESP32 |
+| URL do MVP e repositório | MVP: http://52.67.217.30 · Organização: https://github.com/GS-LuzViva · Este repositório: https://github.com/GS-LuzViva/big-data-architecture-luzviva |
+| Indicadores de impacto | % de falhas achadas antes de relato; tempo até o reparo; horas-luminária no escuro por noite |
+| ODS conectados | 11 (meta 11.7, espaços públicos seguros), 9 (manter a infraestrutura que a cidade já pagou) e 10 (comparar o tempo de reparo entre centro e periferia) |
 
 **Perguntas que o MVP responde ao cidadão e ao gestor**
 1. Como está a iluminação da minha região agora?
@@ -61,7 +76,8 @@ dim_luminaria · dim_regiao · dim_tempo · fato_inspecao · fato_ocorrencia · 
    Para testar uma fonte sem Airflow: `cd dags && python -m coletores.cli iluminacao luminarias 2026-11-04`.
 2. **Databricks Free Edition**: abra este repositório como **Git folder** (os notebooks
    importam `databricks/gs_lib`). Rode `00_setup`, suba o primeiro lote de `chegada/` no
-   Volume `workspace.gs.chegada`, rode `01_bronze`, `02_prata` (informe o sal no widget),
+   Volume `workspace.gs.chegada`, rode `01_bronze`, `02_prata` (deixe o widget `sal_lgpd` vazio: o
+   notebook gera o sal na primeira execução e o guarda no Volume),
    `03_ouro`, `04_consultas` e `05_export_mvp`. Suba o segundo lote e rode de novo a partir
    do `01_bronze` para mostrar a carga incremental.
 3. **Testes locais**: `pytest` (coletores em 1 s; Prata e Ouro com PySpark local em ~2 min).
@@ -90,5 +106,8 @@ docs/        fontes, contrato com o MVP, dados simulados, roteiro do relatório
 tests/       testes dos coletores, da Prata e da Ouro
 ```
 
-Sem chaves, senhas ou dados pessoais reais. O sal da pseudonimização é digitado no widget
-do notebook 02 e não fica salvo em lugar nenhum do repositório.
+Sem chaves, senhas ou dados pessoais reais. O sal da pseudonimização é gerado pelo notebook
+02 na primeira execução e guardado no Volume, em `/Volumes/workspace/gs/chegada/_controle/sal_lgpd.txt`,
+fora do repositório; as execuções seguintes reutilizam o mesmo sal, então o mesmo cidadão gera
+sempre o mesmo `cidadao_hash`. O widget `sal_lgpd` continua aceitando um sal informado à mão
+(mínimo de 16 caracteres), que tem prioridade sobre o arquivo.
