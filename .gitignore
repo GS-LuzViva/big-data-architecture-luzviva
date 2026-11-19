@@ -12,4 +12,3 @@ _cache/
 # segredos
 .env
 airflow_home/
-relatorio/relatorio.html
