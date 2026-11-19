@@ -102,7 +102,7 @@ dim_luminaria · dim_regiao · dim_tempo · fato_inspecao · fato_ocorrencia · 
 dags/        DAG e coletores (luminárias, SP156, clima, simulados)
 databricks/  notebooks 00 a 05 e a biblioteca gs_lib testada
 amostras/    um pouco de cada fonte (luminárias e SP156 reais, recortados)
-docs/        fontes, contrato com o MVP, dados simulados, roteiro do relatório
+docs/        fontes, contrato com o MVP, dados simulados
 tests/       testes dos coletores, da Prata e da Ouro
 ```
 
